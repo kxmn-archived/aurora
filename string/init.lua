@@ -1,0 +1,1 @@
+return demmand('lunar.string')

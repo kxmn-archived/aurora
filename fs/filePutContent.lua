@@ -1,0 +1,17 @@
+--- Write contents to a file
+-- @name filePutContent
+-- @param filename string
+-- @return boolean if ok
+return function (f, c, append)
+	local f = io.open(f, append and 'a' or 'w')
+	if f then
+		f:write(c)
+		f:flush()
+		f:close()
+		return true
+	else
+		return false
+	end
+end
+
+
