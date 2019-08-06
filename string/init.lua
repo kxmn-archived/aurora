@@ -1,1 +1,1 @@
-return demmand('lunar.string')
+return ondemand('lunar.string')

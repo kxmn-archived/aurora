@@ -1,5 +1,4 @@
-local Str = require('Kosmo.String')
-local LFS = require('lfs')
+local lfs = require('lfs')
 
 
 --- Check if path is directory
@@ -7,5 +6,5 @@ local LFS = require('lfs')
 -- @param path string containing path analyzed
 -- @return bool
 return function (path)
-	return LFS.attributes(path,'mode') == 'directory'
+	return lfs.attributes(path,'mode') == 'directory'
 end
