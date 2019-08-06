@@ -6,6 +6,7 @@ Making Lua feels like home
 * Missing Lua functions implemented from other languages
 * Some abstraction over tiny and very useful 3rd party code
 
+## Basics
 
 ### On Demand method loader
 
@@ -33,10 +34,41 @@ any of the files inside your `proj` folder, like this:
 ```
 
 
+## Templating
+
+Templating system is prepared for use with Lua 5.3.3. Can handle different
+instances with different configurations, and with a sandboxed environment
+to control what can be accomplished from inside template.
+
+```Lua
+local t = require('lunar.template'):new({
+	conf = {
+		cache = true, -- stores compiled templates,
+		compilePath = './cached/', -- where find compiled ones,
+		templatePath = './tpl/', -- where find templates,
+	}
+})
+
+local html = t:render('index.html', { t = "title", c="content" })
+print html;
+
+```
+
+Example index.html
+```HTML
+<h1>{%= t %}</h1>
+{% if c then %}
+	<p>{%= c %}</p>
+{% end %}
+<footer>{%include: footer.html %}</footer>
+
+```
+
+
 # 3rd party credit
 
 Below, a list with 3rd party snippets mixed in Lunar code.
 Some of these were changed and adapted.
 
-* Template: using Lilua
+* Template: build upon SLT (https://github.com/henix/slt2)
 * HTTP Server: using Pegasus
