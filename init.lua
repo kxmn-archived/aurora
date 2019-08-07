@@ -1,7 +1,7 @@
---- Lunar
--- Making Lua feels like home <3
+--- Aurora
+-- Lua tool set of functions
 
--- @module lunar
+-- @module aurora
 -- @author KXMN 
 -- @copyright Copyright (c) 2019 Kxmn
 -- @license MIT
@@ -19,4 +19,4 @@ _G.ondemand = function(m)
 		})
 end
 
-return ondemand('lunar')
+return ondemand('aurora')

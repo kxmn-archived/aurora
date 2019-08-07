@@ -1,4 +1,4 @@
-local fs = lunar.fs
+local fs = aurora.fs
 
 
 --- Write contents to a file

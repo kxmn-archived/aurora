@@ -1,4 +1,4 @@
-local httpserver = require('lunar.httpserver.pegasus');
+local httpserver = require('aurora.httpserver.pegasus');
 
 return {
 	new = function(self,conf)
@@ -6,7 +6,7 @@ return {
 		local S = httpserver:new({
 			port     = conf.port or 8080,
 			location = conf.location or PATH..'/www',
-			plugins  = conf.compress and { require('lunar.httpserver.pegasus.compress'):new() } or {}
+			plugins  = conf.compress and { require('aurora.httpserver.pegasus.compress'):new() } or {}
 		})
 
 		S:start(function(request,response)

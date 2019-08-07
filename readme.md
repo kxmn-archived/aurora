@@ -1,6 +1,6 @@
-# LUNAR
+# AURORA
 
-Making Lua feels like home
+A Lua function library to fill your tool set.
 
 * On demand method loader
 * Missing Lua functions implemented from other languages
@@ -67,7 +67,7 @@ Example index.html
 
 # 3rd party credit
 
-Below, a list with 3rd party snippets mixed in Lunar code.
+Below, a list with 3rd party snippets mixed in Aurora code.
 Some of these were changed and adapted.
 
 * Template: build upon SLT (https://github.com/henix/slt2)

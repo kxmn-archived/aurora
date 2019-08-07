@@ -1,6 +1,6 @@
-local split = lunar.string.split
+local split = aurora.string.split
 local lfs = require('lfs')
-local fs = lunar.fs
+local fs = aurora.fs
 
 --- Recursive directory creation
 -- @name mkdir

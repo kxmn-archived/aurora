@@ -1,1 +1,1 @@
-return ondemand('lunar.string')
+return ondemand('aurora.string')

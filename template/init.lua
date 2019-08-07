@@ -1,5 +1,5 @@
---- Lunar template
--- Project page: https://github.com/kxmn/lunar
+--- Aurora template
+-- Project page: https://github.com/kxmn/aurora
 -- Extended from a fork of Simple Lua Template 2 (slt2) version 1.0
 --
 -- @license MIT License
@@ -8,7 +8,7 @@
 --]]
 
 local _ = {}
-local fs = require 'lunar.fs'
+local fs = require 'aurora.fs'
 
 
 
