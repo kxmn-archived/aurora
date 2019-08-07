@@ -15,7 +15,7 @@ description = {
 dependencies = {
    "lua >= 5.3",
    "luafilesystem >= 1.7.0-2",
-	 "luasocket > 3.0rc1-2",
+	 "luasocket >= 3.0rc1-2",
 	 "lua-cjson = 2.1.0-1",
 	 "lzlib >= 0.4.1.53-1",
 	 "mimetypes 1.0.0-2"
