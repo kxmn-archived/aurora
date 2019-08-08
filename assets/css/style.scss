@@ -13,13 +13,16 @@ body {color:#eee}
 	content:"";
 }
 section #title h1 {
-	line-height:100px;
+	line-height:50px;
 	vertical-align:middle;
 	text-transform:capitalize;
 	font-size:5em;
 	font-weight:bold;
-	min-height:50px;
 	padding-left:30px;
+}
+section #title p {
+	padding-left:130px;
+	text-align:left;
 }
 
 #title h1:before {
@@ -27,10 +30,6 @@ section #title h1 {
 }
 #title h1, a:link, a:visited, a:hover {
 	color:#f60;
-}
-#title p {
-	padding-left:130px;
-	text-align:left;
 }
 
 h1 {font-size:3em;font-weight:bold;}
@@ -79,7 +78,6 @@ pre code { border:none; }
 		padding-left:0;
 		text-align:center;
 		display:block;
-		min-height:auto;
 		line-height:1em;
 		margin:0 0 0.2em 0;
 	}
