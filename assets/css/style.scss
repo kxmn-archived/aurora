@@ -9,10 +9,11 @@
 	height:200px;
 	background-image: url('/aurora/logo-kxmn-dev.png?v2');
 	float:left;
-	content="";
+	content:"";
 }
 section #title h1 {
 	line-height:100px;
+	vertical-align:middle;
 }
 section #title h1, a:link a:visited a:hover {
 	color:#f60;
