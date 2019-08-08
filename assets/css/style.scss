@@ -33,7 +33,7 @@ h3 {font-size:2em;}
 
 
 
-h1,h2,h3 {
+h1, h2, h3 {
 	display:inline-block;
 	margin-bottom:0.5em;
 	background:#252525;
@@ -51,7 +51,7 @@ h1:before, h2:before, h3:before {
 
 
 blockquote {
-	border-left: 3px solid #ff6600
+	border-left: 3px solid #ff6600;
 }
 
 pre, code, kbd {
@@ -59,7 +59,7 @@ pre, code, kbd {
 	border:1px dashed #ff6600;
 	box-shadow:none;
 }
-pre code { border:none }
+pre code { border:none; }
 
 #header nav li a {
 	border:1px solid #742;
