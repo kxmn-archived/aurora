@@ -12,12 +12,14 @@ body {color:#eee}
 	float:left;
 	content:"";
 }
-#title h1 {
+section #title h1 {
 	line-height:100px;
 	vertical-align:middle;
 	text-transform:capitalize;
 	font-size:5em;
 	font-weight:bold;
+	min-height:50px;
+	padding-left:30px;
 }
 
 #title h1:before {
@@ -25,6 +27,9 @@ body {color:#eee}
 }
 #title h1, a:link, a:visited, a:hover {
 	color:#f60;
+}
+#title p {
+	padding-left:130px;
 }
 
 h1 {font-size:3em;font-weight:bold;}
@@ -69,6 +74,8 @@ pre code { border:none; }
 }
 
 @media screen and ( max-width:600px ) {
+	section #title h1 {padding-left:0; text-align:center}
+	section #title p {padding-left:0; text-align:center}
 	#title:before {
 		float:none;
 	}
