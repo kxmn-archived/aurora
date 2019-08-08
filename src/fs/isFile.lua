@@ -2,8 +2,9 @@
 -- @name isFile
 -- @param filename string
 -- @return boolean if ok
-M.isFile = function (f)
-	local f=io.open(name,"r")
+
+return function (f)
+	local f=io.open(f,"r")
    	if f~=nil then
 		io.close(f)
 		return true
