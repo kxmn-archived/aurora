@@ -1,0 +1,18 @@
+#!/bin/bash
+export rock=$1
+export version=$2
+export gittag=v$(echo $2|cut -d- -f1)
+
+function gen () {
+	cat ./rockspecs/default.rockspec | sed -s "s/\(^\s*version\s*=\).*/\1 \"$version\"/;s/\(^\stag\s*=\).*/\1 \"$gittag\",/"
+
+	echo -e "\nbuild = {\n\ttype = "'"builtin"'",\n\tmodules = {\n" 
+	for i in $(find  . -name *.lua | grep '^\./src' | cut -d/ -f2- | sort); do
+		file=$(echo $i | sed -s "s/^//")
+		module=$(echo $file| sed -s "s/^src\//$rock\//g;s/\/init.lua$//g;s/\.lua$//g;s/\//./g;")
+		echo -e "\t\t"'["'$module'"]="'$file'",';
+	done
+	echo -e "\t}\n}\n"
+}
+gen > ./rockspecs/$rock-$version.rockspec
+
