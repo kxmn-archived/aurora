@@ -30,6 +30,7 @@ section #title h1 {
 }
 #title p {
 	padding-left:130px;
+	text-align:left;
 }
 
 h1 {font-size:3em;font-weight:bold;}
@@ -74,9 +75,10 @@ pre code { border:none; }
 }
 
 @media screen and ( max-width:600px ) {
-	section #title h1 {padding-left:0; text-align:center}
+	section #title h1 {padding-left:0; text-align:center;display:block;min-height:auto}
 	section #title p {padding-left:0; text-align:center}
 	#title:before {
 		float:none;
+		margin:auto;
 	}
 }
