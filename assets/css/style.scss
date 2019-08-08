@@ -11,14 +11,15 @@
 	float:left;
 	content:"";
 }
-section #title h1 {
+#title h1 {
 	line-height:100px;
 	vertical-align:middle;
 }
-section #title h1, a:link a:visited a:hover {
+#title h1, a:link a:visited a:hover {
 	color:#f60;
 }
-@media only screen and ( max-width:600px ) {
+
+@media screen and ( max-width:600px ) {
 	#title:before {
 		float:none;
 	}
