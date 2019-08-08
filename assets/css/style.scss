@@ -8,7 +8,7 @@ body {color:#eee}
 	display:block;
 	width:100px;
 	height:100px;
-	background-image: url('/assets/aurora/logo-kxmn-dev.png?v2');
+	background-image: url('/aurora/assets/logo-kxmn-dev.png?v2');
 	float:left;
 	content:"";
 }
@@ -30,13 +30,13 @@ body {color:#eee}
 h1 {font-size:3em;font-weight:bold;}
 h2 {font-size:2.5em;}
 h3 {font-size:2em;}
-
-
+hr {background:none;border:1px dashed #696969;height:1px}
 
 h1, h2, h3 {
 	display:inline-block;
 	margin-bottom:0.5em;
 	background:#252525;
+	padding-right:10px;
 }
 
 h1:before, h2:before, h3:before {
