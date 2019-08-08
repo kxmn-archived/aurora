@@ -87,3 +87,17 @@ pre code { border:none; }
 		margin:auto;
 	}
 }
+
+footer .credits.left {
+    float: left;
+}
+footer .credits.right {
+    float: right;
+}
+footer .credits {
+    font-size: 11px;
+    font-family: 'OpenSansRegular', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    color: #696969;
+    margin-top: -10px;
+}
