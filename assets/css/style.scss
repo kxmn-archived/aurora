@@ -2,21 +2,68 @@
 ---
 
 @import "{{ site.theme }}";
+body {color:#eee}
 
 #title:before {
 	display:block;
-	width:200px;
-	height:200px;
-	background-image: url('/aurora/logo-kxmn-dev.png?v2');
+	width:100px;
+	height:100px;
+	background-image: url('/assets/aurora/logo-kxmn-dev.png?v2');
 	float:left;
 	content:"";
 }
 #title h1 {
 	line-height:100px;
 	vertical-align:middle;
+	text-transform:capitalize;
+	font-size:5em;
+	font-weight:bold;
 }
-#title h1, a:link a:visited a:hover {
+
+#title h1:before {display:none}
+#title h1, a:link, a:visited, a:hover {
 	color:#f60;
+}
+
+h1 {font-size:3em;font-weight:bold}
+h2 {font-size:2.5em;}
+h3 {font-size:2em;}
+
+
+
+h1,h2,h3 {
+	display:inline-block;
+	margin-bottom:0.5em;
+	background:#252525;
+}
+
+h1:before, h2:before, h3:before {
+	border-bottom:1px dashed #696969;
+	margin-top:0.5em;
+	display:block;
+	content:'';
+	width:calc(100% - 40px}
+	position:absolute;
+	z-index: -1;
+}
+
+
+blockquote {
+	border-left: 3px solid #ff6600
+}
+
+pre, code, kbd {
+	background:#181818;
+	border:1px dashed #ff6600;
+	box-shadow:none;
+}
+pre code { border:none }
+
+#header nav li a {
+	border:1px solid #742;
+	background:linear-gradient(#521, #742);
+	background-color:#521;
+	border-radius:20px;
 }
 
 @media screen and ( max-width:600px ) {
