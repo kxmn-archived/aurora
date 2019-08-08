@@ -75,7 +75,14 @@ pre code { border:none; }
 }
 
 @media screen and ( max-width:600px ) {
-	section #title h1 {padding-left:0; text-align:center;display:block;min-height:auto}
+	section #title h1 {
+		padding-left:0;
+		text-align:center;
+		display:block;
+		min-height:auto;
+		line-height:1em;
+		margin:0 0 0.2 0;
+	}
 	section #title p {padding-left:0; text-align:center}
 	#title:before {
 		float:none;
