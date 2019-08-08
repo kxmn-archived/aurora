@@ -20,12 +20,14 @@ body {color:#eee}
 	font-weight:bold;
 }
 
-#title h1:before {display:none}
+#title h1:before {
+	display:none;
+}
 #title h1, a:link, a:visited, a:hover {
 	color:#f60;
 }
 
-h1 {font-size:3em;font-weight:bold}
+h1 {font-size:3em;font-weight:bold;}
 h2 {font-size:2.5em;}
 h3 {font-size:2em;}
 
@@ -42,7 +44,7 @@ h1:before, h2:before, h3:before {
 	margin-top:0.5em;
 	display:block;
 	content:'';
-	width:calc(100% - 40px}
+	width:calc(100% - 40px);
 	position:absolute;
 	z-index: -1;
 }
