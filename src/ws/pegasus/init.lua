@@ -1,5 +1,5 @@
 local socket = require 'socket'
-local Handler = require 'aurora.httpserver.pegasus.handler'
+local Handler = require 'aurora.ws.pegasus.handler'
 
 
 local Pegasus = {}

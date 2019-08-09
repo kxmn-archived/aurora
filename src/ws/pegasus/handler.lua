@@ -1,5 +1,5 @@
-local Request = require 'Kosmo.HTTP.Server.Pegasus.Request'
-local Response = require 'Kosmo.HTTP.Server.Pegasus.Response'
+local Request = require 'aurora.ws.pegasus.request'
+local Response = require 'aurora.ws.pegasus.response'
 local mimetypes = require 'mimetypes'
 local lfs = require 'lfs'
 

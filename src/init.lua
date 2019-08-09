@@ -1,16 +1,15 @@
 --- Aurora
 -- Lua tool set of functions
-
--- @module aurora
--- @author KXMN 
--- @copyright Copyright (c) 2019 Kxmn
--- @license MIT
+-- Copyright (c) 2019 Kxmn
+-- License MIT
 
 
---- Global function loader
--- Allow methods to be autoloaded from filesystem subtree
--- @param m full module name
--- @param t current method table for "in file" methods
+--[[md
+	ondemand(thisModuleName) : table
+	* `thisModuleName`: submodules will be search under this name
+	* `table`: return table where inexistent properties will auto request
+	This function is set on global scope when you just `require "aurora"`
+--]]
 _G.ondemand = function(m)
 		return setmetatable ({},{
 			__index = function(t,k)
@@ -19,4 +18,10 @@ _G.ondemand = function(m)
 		})
 end
 
-return ondemand('aurora')
+-- As wide as possible
+-- instead of requires, just use the "namespace"
+-- if performance worry, bring to scope with a `local a = aurora`
+_G.aurora = _G.ondemand('aurora')
+
+-- Just to avoid mistakes
+return _G.aurora

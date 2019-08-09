@@ -1,12 +1,12 @@
-local httpserver = require('aurora.httpserver.pegasus');
+local ws = require('aurora.ws.pegasus');
 
 return {
 	new = function(self,conf)
 
-		local S = httpserver:new({
+		local S = ws:new({
 			port     = conf.port or 8080,
 			location = conf.location or PATH..'/www',
-			plugins  = conf.compress and { require('aurora.httpserver.pegasus.compress'):new() } or {}
+			plugins  = conf.compress and { require('aurora.ws.pegasus.compress'):new() } or {}
 		})
 
 		S:start(function(request,response)

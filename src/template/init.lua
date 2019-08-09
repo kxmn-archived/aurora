@@ -14,7 +14,7 @@ local fs = require 'aurora.fs'
 
 local T = {
 	conf = {
-		cache=false,
+		cached=false,
 		compilePath = '',
 		templatePath = '',
 		startTag = '{%',
@@ -142,17 +142,21 @@ function T:coRender(t, data)
   return assert(load(t.code, t.name, 't', data))
 end
 
--- @return string
+--[[md
+--	TemplateInstance:render(tplFileName, data) : stringResult
+--	* tplFileName: template file name on template path
+--	* stringResult: a table including all variables used on template
+--]]
 function T:render(tplName, data)
 	local tfile = self.conf.templatePath..tplName
 	local cfile = self.conf.compilePath..tplName
 	local luaData = {
 		name=tfile,
-		code=self.conf.cache and fs.getFileContents(cfile)
+		code=self.conf.cached and fs.getFileContents(cfile)
 	}
 	if not luaData.code then
 		luaData = self:loadfile(tfile)
-		if self.conf.cache and luaData.code then
+		if self.conf.cached and luaData.code then
 			fs.putFileContents(cfile,luaData.code)
 		end
 	end
@@ -174,7 +178,11 @@ function T:renderString(str,data)
 
 end
 
-
+--[[md
+--	template.new(conf) : templateInstance
+--	* conf:	table with configurations of path, cache and sandbox env
+--	* templateInstance: table with methods to handle templates
+--]]
 return {
 	new = function(o)
 		o = setmetatable(o or {}, {__index = T })
