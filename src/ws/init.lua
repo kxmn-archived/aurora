@@ -1,7 +1,12 @@
 local ws = require('aurora.ws.pegasus');
 
+--[[md
+aurora.ws.new(conf) : Pegasus
+* conf: table with configuration
+* Pegasus: instance of the webserver
+]]
 return {
-	new = function(self,conf)
+	new = function(conf)
 
 		local S = ws:new({
 			port     = conf.port or 8080,
