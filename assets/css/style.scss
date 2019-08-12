@@ -12,6 +12,7 @@ $colorAction: #ff8800;
 body,html {
 	color: $colorBase;
 	background: $colorBaseBg;
+	font-family:16px/1.5 "OpenSansRegular", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 #title:before {
 	display:block;
@@ -82,6 +83,7 @@ pre code {
 .wrapper {
 	background:#181818;
 	border:1px solid #222222;
+	max-width:850px;
 }
 .wrapper > section {
 	margin-top:0;
