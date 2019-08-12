@@ -2,8 +2,17 @@
 ---
 
 @import "{{ site.theme }}";
-body {color:#eee}
 
+$colorBaseBg: #080808;
+$colorBoldBg: #11202f;
+$colorBase:   #aaafb4;
+$colorBold:   #a5835c;
+$colorAction: #ff8800;
+
+body {
+	color: $colorBase;
+	background: $colorBaseBg;
+}
 #title:before {
 	display:block;
 	width:100px;
@@ -29,18 +38,56 @@ section #title p {
 	display:none;
 }
 #title h1, a:link, a:visited, a:hover {
-	color:#f60;
+	color:$colorAction;
 }
 
-h1 {font-size:3em;font-weight:bold;}
-h2 {font-size:2.5em;}
-h3 {font-size:2em;}
-hr {background:none;border:1px dashed #696969;height:1px}
+#header {
+	position:absolute;
+	background:transparent;
+	border:none;
+	box-shadow:none;
+	right:0;
+	left:auto;
+	width:auto
+}
+:target {text-shadow:0 0 5px $colorAction}
 
-h1, h2, h3 {
+ul,ol,li { list-style-image: none}
+ol {list-style-type: decimal}
+ol > li > ol {list-style-type:disc}
+li > ul {list-style-type:circle}
+dt {color:inherit;font-family:inherit}
+
+h1 {font-size:2.5em;font-weight:bold;}
+h2 {font-size:1.8em;}
+h3 {font-size:1.5em; color:#fa8;}
+hr {background:none;border:1px dashed #696969;height:1px}
+[id]>code {
+	background:inherit;
+	color:inherit;
+	font-family:inherit;
+	font-size:inherit;
+	padding:0;
+}
+a>code {
+	color:inherit;
+	background:inherit;
+	font-size:inherit;
+}
+
+pre code {
+	color:$colorBase;
+}
+
+.wrapper > section {
+	margin-top:0;
+}
+
+h1, h2, h3, h4 {
 	display:inline-block;
 	margin-bottom:0.5em;
-	background:#252525;
+	background:$colorBaseBg;
+	color:$colorBold;
 	padding-right:10px;
 }
 
@@ -59,12 +106,14 @@ blockquote {
 	border-left: 3px solid #ff6600;
 }
 
-pre, code, kbd {
-	background:#181818;
-	border:1px dashed #ff6600;
-	box-shadow:none;
+pre { border:1px dashed $colorBold; }
+
+code {
+	color: $colorBold;
+	border:none;padding:1px 2px;
+	font-family: Bitstream Vera Sans Mono, Lucida Console, Terminal, monospace;
+	margin:0;
 }
-pre code { border:none; }
 
 #header nav li a {
 	border:1px solid #742;
