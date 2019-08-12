@@ -9,7 +9,7 @@ $colorBase:   #aaafb4;
 $colorBold:   #a5835c;
 $colorAction: #ff8800;
 
-body {
+body,html {
 	color: $colorBase;
 	background: $colorBaseBg;
 }
@@ -79,6 +79,10 @@ pre code {
 	color:$colorBase;
 }
 
+.wrapper {
+	background:#181818;
+	border:1px solid #222222;
+}
 .wrapper > section {
 	margin-top:0;
 }
@@ -86,7 +90,7 @@ pre code {
 h1, h2, h3, h4 {
 	display:inline-block;
 	margin-bottom:0.5em;
-	background:$colorBaseBg;
+	background:#181818;
 	color:$colorBold;
 	padding-right:10px;
 }
