@@ -1,7 +1,9 @@
---- Get directory name including path
--- @name dirname
--- @param path full path, including or not the filename
--- @return string or false
+--[[md:
+### fs.dirname(path)
+
+* path : string to be processed
+* returns the directory part, excluding filename
+]]
 return function (p)
 	return p:gsub('[^\\/]+[\\/]?$', '')
 end

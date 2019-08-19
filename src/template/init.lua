@@ -7,9 +7,20 @@
 -- @copyright 2016 henix (https://github.com/henix/slt2
 --]]
 
-local _ = {}
+local _,T,M = {},{},{}
 local fs = require 'aurora.fs'
 
+--[[md:
+###	template.new(conf) : templateInstance
+* conf:	table with configurations of path, cache and sandbox env
+* templateInstance: table with methods to handle templates
+]]
+function M.new(o)
+	o = setmetatable(o or {}, {__index = T })
+	o.conf = setmetatable(o.conf or {}, {__index = T.conf})
+	o.env = setmetatable(o.env or {}, {__index = T.env})
+	return o
+end
 
 
 local T = {
@@ -69,21 +80,6 @@ function _.includeFold(template, conf, foldFunc, iniFunc)
   return result
 end
 
--- preprocess included files
--- @return string
-function T:precompile(template,conf)
-  return table.concat(_.includeFold(template, conf, function(acc, v)
-    if type(v) == 'string' then
-      table.insert(acc, v)
-    elseif type(v) == 'table' then
-      table.insert(acc, table.concat(v))
-    else
-      error('Unknown type: '..type(v))
-    end
-    return acc
-  end, function() return {} end))
-end
-
 -- unique a list, preserve order
 function _.stableUniq(t)
   local existed = {}
@@ -97,9 +93,40 @@ function _.stableUniq(t)
   return res
 end
 
+--[[md:
+### TemplateInstance:precompile(tplString, conf) : str
+* tplString : template string to be compiled
+* conf : parsing configuration as conf.startTag, conf.endTag, conf.templatePath
+returns str, i.e., a string
 
--- @return { name = string, code = string / function}
+This function just try to load the includes returning the full string template file.
+]]
+function T:precompile(template,conf)
+  return table.concat(_.includeFold(template, conf, function(acc, v)
+    if type(v) == 'string' then
+      table.insert(acc, v)
+    elseif type(v) == 'table' then
+      table.insert(acc, table.concat(v))
+    else
+      error('Unknown type: '..type(v))
+    end
+    return acc
+  end, function() return {} end))
+end
+
+
+--[[md:
+### TemplateInstance:load(tplString, tplName? ,conf?) : {name=str,code=str}
+* tplString : template string to be processed
+* tplName : name of this template
+* conf : table with settings, like conf.startTag, conf.endTag or conf.templatePath
+
+Returns a table containing
+* name : a string with the given name to template
+* code : lua code string to be ran on render
+]]
 function T:load(template, tplName, conf)
+	conf = conf or self.conf
   -- compile it to lua code
   local luaCode = {}
   local outputFn = "print"
@@ -131,9 +158,18 @@ function T:load(template, tplName, conf)
   return ret
 end
 
--- @return { name = string, code = string / function }
-function T:loadfile(filename)
-  return T:load(fs.getFileContents(filename), filename, self.conf)
+
+--[[md:
+### TemplateInstance:load(filename ,conf?) : {name=str,code=str}
+* filename : file with content to be processed
+* conf : table with settings, like conf.startTag, conf.endTag or conf.templatePath
+
+Returns a table containing
+* name : a string with the given name to template
+* code : lua code string to be ran on render
+]]
+function T:loadfile(filename,conf)
+  return T:load(fs.getFileContents(filename), filename, conf or self.conf)
 end
 
 -- @return a coroutine function
@@ -142,11 +178,12 @@ function T:coRender(t, data)
   return assert(load(t.code, t.name, 't', data))
 end
 
---[[md
---	TemplateInstance:render(tplFileName, data) : stringResult
---	* tplFileName: template file name on template path
---	* stringResult: a table including all variables used on template
---]]
+--[[md:
+### TemplateInstance:render(tplFileName, data) : stringResult
+* tplFileName: template file name on template path
+* stringResult: a table including all variables used on template
+* returns the string rendered from template with the passed variables
+]]
 function T:render(tplName, data)
 	local tfile = self.conf.templatePath..tplName
 	local cfile = self.conf.compilePath..tplName
@@ -157,7 +194,7 @@ function T:render(tplName, data)
 	if not luaData.code then
 		luaData = self:loadfile(tfile)
 		if self.conf.cached and luaData.code then
-			fs.putFileContents(cfile,luaData.code)
+			fs.setFileContents(cfile,luaData.code)
 		end
 	end
 
@@ -178,16 +215,4 @@ function T:renderString(str,data)
 
 end
 
---[[md
---	template.new(conf) : templateInstance
---	* conf:	table with configurations of path, cache and sandbox env
---	* templateInstance: table with methods to handle templates
---]]
-return {
-	new = function(o)
-		o = setmetatable(o or {}, {__index = T })
-		o.conf = setmetatable(o.conf or {}, {__index = T.conf})
-		o.env = setmetatable(o.env or {}, {__index = T.env})
-		return o
-	end
-}
+return M;

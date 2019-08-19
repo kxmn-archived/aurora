@@ -1,7 +1,9 @@
---- Check if path is a file
--- @name isFile
--- @param filename string
--- @return boolean if ok
+--[[md:
+### fs.isFile(path)
+
+* path : path to the file 
+* returns true if path is file, false otherwise
+]]
 
 return function (f)
 	local f=io.open(f,"r")

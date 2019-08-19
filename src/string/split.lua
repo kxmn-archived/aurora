@@ -1,3 +1,11 @@
+--[[md:
+### string.split(string, delimiter)
+
+* string : text intended to be splited
+* delimiter : character or substring that divides the string in parts.
+returns list table with strings
+]]
+
 return function(s, d)
    local t, ll
    t={}

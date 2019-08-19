@@ -1,9 +1,16 @@
 local ws = require('aurora.ws.pegasus');
 
+--[[md:
+## aurora.ws - WebServer utility
+
+]]
+
+
+
 --[[md
-aurora.ws.new(conf) : Pegasus
+### ws.new(conf) : Pegasus
 * conf: table with configuration
-* Pegasus: instance of the webserver
+* returns a Pegasus like webserver instance
 ]]
 return {
 	new = function(conf)
