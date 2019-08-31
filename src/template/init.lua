@@ -1,11 +1,12 @@
---- Aurora template
--- Project page: https://github.com/kxmn/aurora
--- Extended from a fork of Simple Lua Template 2 (slt2) version 1.0
---
--- @license MIT License
--- @copyright 2019 Kxmn
--- @copyright 2016 henix (https://github.com/henix/slt2
---]]
+--[[md:
+## Aurora template
+
+Extended from a fork of Simple Lua Template 2 (slt2) version 1.0
+
+* License MIT License
+* © copyright 2019 Kxmn
+* © copyright 2016 henix (https://github.com/henix/slt2
+]]
 
 local _,T,M = {},{},{}
 local fs = require 'aurora.fs'
@@ -211,7 +212,7 @@ function T:render(tplName, data)
 end
 
 function T:renderString(str,data)
-	
+
 
 end
 
