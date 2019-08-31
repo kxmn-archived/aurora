@@ -90,10 +90,3 @@ function M.fromBase(b,d)
 	for i=1, #d, 1 do li[#li+1]=Digits:find(d:sub(i,i))-1 end
 	return M.fromValues(b,li)
 end
-
-
-
-local res = M.toBase(16,4095)
-print(res)
-print(M.fromBase(16,res))
-print(M.fromBase(16,'ffffff'))
