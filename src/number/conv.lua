@@ -1,7 +1,7 @@
 local M = {}
 
 --[[md:
-### number.base.toValues(base,value)
+### aurora.number.conv.toValues(base,value)
 
 * base : base used to convert value
 * value : a number
@@ -25,7 +25,7 @@ end
 
 
 --[[md:
-### number.base.fromValues(base,value) : number
+### aurora.number.conv.fromValues(base,value) : number
 
 * base : base number that represents previous used to encode
 * value : a table where each digit is in one position;
@@ -33,7 +33,7 @@ end
 
 Example:
 ```
-print(aurora.number.fromValues({15,15,15},16))
+print(aurora.number.conv.fromValues({15,15,15},16))
 = "4095"
 ```
 ]]
@@ -49,7 +49,7 @@ end
 local Digits = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 --[[md:
-### number.toBase(base,decimal)
+### aurora.number.conv.toBase(base,decimal)
 
 * base : target base for conversion (maximum 62)
 * decimal : integer number to be converted
@@ -60,7 +60,7 @@ if you use in a case insensitive context, prefer use base 36 instead 62
 
 Example:
 ```
-print(aurora.number.tobase(16,4095))
+print(aurora.number.conv.toBase(16,4095))
 = "fff"
 ```
 
@@ -73,7 +73,7 @@ function M.toBase(b,d)
 end
 
 --[[md:
-### number.fromBase(base,string)
+### aurora.number.conv.fromBase(base,string)
 
 * base : target base for conversion (maximum 62) (see toBase for info)
 * string : string representation that should be converted back to decimal
@@ -81,7 +81,7 @@ end
 
 Example:
 ```
-print(aurora.number.fromBase(16,'fff'))
+print(aurora.number.conv.fromBase(16,'fff'))
 = 4095
 ```
 ]]
