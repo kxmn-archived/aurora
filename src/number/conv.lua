@@ -1,7 +1,7 @@
 local M = {}
 
 --[[md:
-### aurora.number.conv.toValues(base,value)
+### number.conv.toValues(base,value)
 
 * base : base used to convert value
 * value : a number
@@ -25,7 +25,7 @@ end
 
 
 --[[md:
-### aurora.number.conv.fromValues(base,value) : number
+### number.conv.fromValues(base,value) : number
 
 * base : base number that represents previous used to encode
 * value : a table where each digit is in one position;
@@ -49,7 +49,7 @@ end
 local Digits = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 --[[md:
-### aurora.number.conv.toBase(base,decimal)
+### number.conv.toBase(base,decimal)
 
 * base : target base for conversion (maximum 62)
 * decimal : integer number to be converted
@@ -73,7 +73,7 @@ function M.toBase(b,d)
 end
 
 --[[md:
-### aurora.number.conv.fromBase(base,string)
+### number.conv.fromBase(base,string)
 
 * base : target base for conversion (maximum 62) (see toBase for info)
 * string : string representation that should be converted back to decimal

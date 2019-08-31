@@ -6,7 +6,7 @@ local M = ondemand('aurora.table')
 
 
 --[[md:
-### aurora.table.toSet (list)
+### table.toSet (list)
 
 * list : a list table
 * returns a table indexed with values of list, easily searchable
