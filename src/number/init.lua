@@ -8,7 +8,7 @@ local M=ondemand('aurora.number')
 
 
 --[[md:
-### aurora.numer.rand(bytes,mask)
+### aurora.number.rand(bytes,mask)
 
 * bytes : (default=4) bytes that should be read from /dev/urandom
 * mask : (default=256) mask used incrementally for each
