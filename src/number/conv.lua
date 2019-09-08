@@ -8,6 +8,7 @@ local M = {}
 * Returns a table with each result digit at one position;
 
 Example:
+
 ```
 local digits = aurora.number.toValues(16,4095))
 print(table.concat(digits,','))
@@ -32,6 +33,7 @@ end
 * Returns a number
 
 Example:
+
 ```
 print(aurora.number.conv.fromValues({15,15,15},16))
 = "4095"

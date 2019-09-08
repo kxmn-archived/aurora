@@ -88,7 +88,8 @@ files = {
 		{ name = "name of the file", tmpname = "tmpfile on disk", mime = "mimetype" },
 		{...}
 	}
-}```
+}
+```
 
 
 ### Conn:addHeaders(table)
