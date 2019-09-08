@@ -31,7 +31,7 @@ function Request:parseFirstLine()
     return
   end
 
-  local status, partial
+  local status, partial, path, protocol
   self.firstLine, status, partial = self.client:receive()
 
   if (self.firstLine == nil or status == 'timeout' or partial == '' or status == 'closed') then
@@ -40,17 +40,20 @@ function Request:parseFirstLine()
 
   -- Parse firstline http: METHOD PATH PROTOCOL,
   -- GET Makefile HTTP/1.1
-  local method, path, protocol = string.match(self.firstLine, -- luacheck: ignore protocol
-                                 Request.PATTERN_REQUEST)
+  self._method, path, protocol = string.match(
+  	self.firstLine, -- luacheck: ignore protocol
+    Request.PATTERN_REQUEST
+  )
 
-  if not method then
+  if not self._method then
+	  --TODO:
     --! @todo close client socket immediately
     return
   end
 
-  local filename, get
+  local filename
   if #path > 0 then
-    filename, get = string.match(path, '^([^#?]+)[#|?]?(.*)')
+    filename, self._get = string.match(path, '^([^#?]+)[#|?]?(.*)')
   else
     filename = ''
   end
@@ -58,8 +61,6 @@ function Request:parseFirstLine()
   if not filename then return end
 
   self._path = filename or path
-  self._get = get
-  self._method = method
 end
 
 Request.PATTERN_QUERY_STRING = '([^=]*)=([^&]*)&?'
@@ -75,15 +76,9 @@ function Request:parseURLEncoded(value, _table) -- luacheck: ignore self
   return _table
 end
 
-function Request:get()
+function Request:queryData()
   self:parseFirstLine()
   return self:parseURLEncoded(self._get, self._params)
-end
-
-function Request:post()
-  if self:method() ~= 'POST' then return nil end
-  local data = self:receiveBody()
-  return self:parseURLEncoded(data, {})
 end
 
 function Request:path()

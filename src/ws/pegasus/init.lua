@@ -22,7 +22,7 @@ function Pegasus:start(callback)
   local handler = Handler:new(callback, self.location, self.plugins)
   local server = assert(socket.bind(self.host, self.port))
   local ip, port = server:getsockname()
-  print('Pegasus is up on ' .. ip .. ":".. port)
+  print('Aurora Web Server is up on ' .. ip .. ":".. port)
 
   while 1 do
     local client = server:accept()
@@ -32,4 +32,3 @@ function Pegasus:start(callback)
 end
 
 return Pegasus
-
