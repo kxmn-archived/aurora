@@ -1,11 +1,12 @@
 --[[md:
 ## Aurora template
 
-Extended from a fork of Simple Lua Template 2 (slt2) version 1.0
+Template engine to separate logic and contents and caching the work meanwhile.
+Based on Simple Lua Template (slt2 v.1.0) was developed to simplify template handling
 
 * License MIT License
 * © copyright 2019 Kxmn
-* © copyright 2016 henix (https://github.com/henix/slt2
+* © copyright 2016 henix (https://github.com/henix/slt2)
 ]]
 
 local _,T,M = {},{},{}

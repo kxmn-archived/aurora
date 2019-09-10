@@ -5,13 +5,13 @@
 
 
 --[[md:
-	### ondemand(thisModuleName) : table
+### ondemand(thisModuleName) : table
 
-	* `thisModuleName`: submodules will be search under this name
-	* `table`: return table where inexistent properties will auto request
+* `thisModuleName`: submodules will be search under this name
+* `table`: return table where inexistent properties will auto request
 
-	This function is set on global scope when you just `require "aurora"`
-	]]
+This function is set on global scope when you just `require "aurora"`
+]]
 _G.ondemand = function(m)
 		return setmetatable ({},{
 			__index = function(t,k)
