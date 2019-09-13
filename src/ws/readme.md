@@ -12,17 +12,42 @@ using from the start Copas, i.e., allowing assynchronous connections.
 
 ```Lua
 local conf = {
-	server = {
-		port: 8080,
-		host: '*',
-		location: "/document/root/path",
-		compress: true,
+	compress = true,
+	host = '*',
+	servers = {
+		{
+			port = 8080,
+			name = 'yourhostname.com',
+			default = false,
+			root = '/your/document/root/',
+			tempdir = DIR..'/var/adm.akasha/tmp/',
+
+			rules = {
+				{ '^/api/', {
+					process=require('srv.api'),
+				}},
+				{ '^/other/', {
+					root='/other/specific/document/root/',
+				}},
+				{ '^/test', {
+					status = 301,
+					headers = {
+						Location = '/',
+					}
+				}}
+			},
+
+			-- custom server data
+			var = {
+				yourvar = 'custom var accessible through processes and execs'
+			}
+		}
 	},
-	rules = {
-		{ "/api"       , "web.api"  }
-		{ "/something" , 301       , { "Location" = "/" } }
-	}
-}
+},
+-- function that process rules.
+-- default is aurora.ws.ruler
+-- just one allowed on conf, affects all servers
+ruler = nil
 ```
 
 
@@ -32,41 +57,38 @@ Rules are defined in a simple Lua table format; The root table is a list where
 each item is a rule as follows:
 
 ```Lua
-	conf.rules = { rule1, rule2, ruleN }
+	conf.rules{
+		{ MATCH_PATTERN, INSTRUCTIONS },
+		...
+	}
 ```
 
-Each rule is a table too, having three values.
+Where:
+* `matchPattern` is a simple Lua pattern matched against location path excluding
+host name.
+* `instructions` is a Lua table containg instructions of how process request:
 
-```Lua
-	{ MATCH_PATTERN, LUA_MODULE, DEFAULT_HEADERS_TABLE }
-	or
-	{ MATCH_PATTERN, STATUSCODE, DEFAULT_HEADERS_TABLE }
-```
 
-#### MATCH_PATTERN
+#### Rule MATCH_PATTERN
 
-It is ever the first value, being a Lua match pattern that, if matches
-the query path then proceeds to evaluating 2nd and the optional 3rd values.
+It is ever the first value of a rule entry, being a Lua match pattern that, if matches
+the query path then proceeds to evaluating 2nd rule entry value, i.e. INSTRUCTIONS.
 
 Observe that if the rule matched, the next rules will be ignored.
 
-#### LUA_MODULE
+#### Rule INSTRUCTIONS
 
-Here you can put the name of the module as if you require it using Lua `require`
-This module returns a function, as in the followinf module example.
+It is a table indicating if will be processed with Lua, if has default headers etc.
 
-```Lua
-local function Module (request, response, server)
-	local q = request:queryData()["query"]
-	if q then
-		response:write(q)
-	else
-		response:statusCode(404)
-	end
-end
+Possible values:
 
-return Module
-```
+* instruction.process : (optional) a function that receives current (Vhost, Request, Response)
+* instruction.headers : a dictionary with default headers
+* instruction.status : default HTTP status
+* instruction.root : document root for this specific rule
+
+If the rule doens't have a instruction.process then the server will try to find
+a files in the custom document root (if set) or the server default
 
 #### STATUS_CODE
 

@@ -6,20 +6,21 @@ local lfs = require 'lfs'
 local Handler = {
 	host     = '*',
 	port     = 8080,
-	location = '',
 	compress = false,
-	tempdir  = '/tmp',
-	rules = {},
+	tempdir  = '/tmp/',
 	hits = 0, -- it's not configurable... just a counter
 }
 Handler.__index = Handler
 
-function Handler:new(s, callback)
-	s.plugins = {}
-	s.callback = callback
-	s.startdate = os.date('%y%m%d%H%M%S')
+function Handler:new(conf, callback)
+	local s = {
+		plugins = {},
+		callback = callback,
+		startdate = os.date('%y%m%d%H%M%S'),
+		conf = conf
+	}
 
-	if s.compress then s.plugins[#s.plugins+1] = require('aurora.ws.compress'):new() end
+	if conf.compress then s.plugins[#s.plugins+1] = require('aurora.ws.compress'):new() end
 
 	local server = setmetatable(s, self)
 	server:pluginsAlterRequestResponseMetatable()
@@ -98,8 +99,34 @@ function Handler:processBodyData(data, stayOpen, response)
   return localData
 end
 
+function Handler:tryFile(request,response,root)
+	local path = request:path();
+	if path == ''	then
+		path ='/index.html'
+	elseif path:sub(-1) == '/' then
+		path=path..'index.html'
+	end
+	local filename = root .. path
+	if not lfs.attributes(filename) then
+		response:statusCode(404)
+	end
+
+	if self:pluginsProcessFile(request, response, filename) then
+		return
+	end
+
+	local file = io.open(filename, 'rb')
+	if file then
+		response:writeFile(file, mimetypes.guess(filename or '') or 'text/html')
+	else
+		response:statusCode(404)
+	end
+end
+
 function Handler:processRequest(client, port)
+	self.hits = self.hits + 1
   local request = Request:new(client, port)
+	request.number = self.hits
 
   -- if we get some invalid request just close it
   -- do not try handle or response
@@ -108,47 +135,25 @@ function Handler:processRequest(client, port)
     return
   end
 
+	local hostname, _, hostport = request:headers()['Host']:match("([^:]-)(:?([%d]+))")
+	local host = self.conf[hostname] or self.conf.default or nil
+
+	if not host then return end
+
+	host.handler = self
   local response =  Response:new(client, self)
   response.request = request
-  local stop = self:pluginsNewRequestResponse(request, response)
 
-  if stop then
+  if self:pluginsNewRequestResponse(request, response) then
     return
   end
 
-  if request:path() and self.location ~= '' then
-		self.hits = self.hits + 1
-		request.number = self.hits
-		local path = request:path();
-		if path == ''
-			then path ='/index.html'
-			else if path:sub(-1) == '/'
-				then path=path..'index.html'
-			end
-		end
-    local filename = self.location .. path
-    if not lfs.attributes(filename) then
-      response:statusCode(404)
-    end
-
-    stop = self:pluginsProcessFile(request, response, filename)
-
-    if stop then
-      return
-    end
-
-    local file = io.open(filename, 'rb')
-
-    if file then
-      response:writeFile(file, mimetypes.guess(filename or '') or 'text/html')
-    else
-      response:statusCode(404)
-    end
-  end
+	if self:tryFile(request, response, host.root) then return end
 
   if self.callback then
+    self.callback(host, request, response)
 
-    self:callback(request, response)
+		-- Clear temp files
 		if request._files then
 			for _,v in pairs(request._files) do
 				for i=1, #v do os.remove(v[i].tmpname) end
@@ -160,6 +165,5 @@ function Handler:processRequest(client, port)
     response:writeDefaultErrorMessage(404)
   end
 end
-
 
 return Handler
